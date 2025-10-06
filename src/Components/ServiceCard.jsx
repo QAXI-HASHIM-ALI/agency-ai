@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
+import { motion } from "motion/react";
 
-const ServiceCard = ({ service }) => {
+const ServiceCard = ({ service, index }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
   const divRef = useRef(null);
@@ -13,7 +14,11 @@ const ServiceCard = ({ service }) => {
     });
   };
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.2 }}
+      viewport={{ once: true }}
       ref={divRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setVisible(true)}
@@ -39,7 +44,7 @@ const ServiceCard = ({ service }) => {
           <p className="mt-2 text-sm">{service.description}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
